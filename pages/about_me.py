@@ -1,13 +1,15 @@
 import streamlit as st
-
 from forms.contact import contact_form
 
-# --- POPUP CONTACT FORM ---
+# --- Initialize toggle state ---
+if "show_contact_form" not in st.session_state:
+    st.session_state.show_contact_form = False
+
+# --- Function to toggle form visibility ---
 
 
-@st.dialog("Contact Me")
-def show_contact_form():
-    contact_form()
+def toggle_form():
+    st.session_state.show_contact_form = not st.session_state.show_contact_form
 
 
 # --- HERO SECTION ---
@@ -20,18 +22,21 @@ with col2:
     st.write(
         "Java Engineer, assisting enterprises by supporting data-driven decision-making."
     )
-    if st.button("✉️ Contact Me"):
-        show_contact_form()
+    st.button("✉️ Contact Me", on_click=toggle_form)
+
+# --- CONTACT FORM (toggle open/close) ---
+if st.session_state.show_contact_form:
+    contact_form()
 
 # --- EXPERIENCE & QUALIFICATIONS ---
 st.write("\n")
 st.subheader("Experience & Qualifications", anchor=False)
 st.write(
     """
-    - 6 months experience as a Java/DevOps Engineer
-    - Strong hands-on experience and knowledge in Python and Excel
-    - Good understanding of statistical principles and their respective applications
-    - Excellent team-player and displaying a strong sense of initiative on tasks
+    - 6 months experience as a Java/DevOps Engineer  
+    - Strong hands-on experience and knowledge in Python and Excel  
+    - Good understanding of statistical principles and their respective applications  
+    - Excellent team-player and displaying a strong sense of initiative on tasks  
     """
 )
 
@@ -40,9 +45,9 @@ st.write("\n")
 st.subheader("Hard Skills", anchor=False)
 st.write(
     """
-    - Programming: Python (Scikit-learn, Pandas), SQL, VBA
-    - Data Visualization: PowerBi, MS Excel, Plotly
-    - Modeling: Logistic regression, linear regression, decision trees
-    - Databases: Postgres, MongoDB, MySQL
+    - Programming: Python (Scikit-learn, Pandas), SQL, VBA  
+    - Data Visualization: PowerBi, MS Excel, Plotly  
+    - Modeling: Logistic regression, linear regression, decision trees  
+    - Databases: Postgres, MongoDB, MySQL  
     """
 )
